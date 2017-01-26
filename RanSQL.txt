@@ -1,0 +1,343 @@
+CREATE TABLE `user` (
+`UserID` int(11) NOT NULL AUTO_INCREMENT,
+`FirstName` char(20) NOT NULL,
+`LastName` char(20) NOT NULL,
+`Address` char(50) NOT NULL,
+`City` char(20) NOT NULL,
+`State` char(2) NOT NULL,
+`ZipCode` char(10) NOT NULL,
+`Telephone` char(20) NOT NULL,
+`Email` char(30) NOT NULL UNIQUE,
+`Password` char(30) NOT NULL,
+`Preferences` varchar(50) NOT NULL,
+`Rating` enum('active','sometime','rarely','never') DEFAULT NULL,
+PRIMARY KEY (`UserID`)
+);
+
+INSERT INTO user (FirstName, LastName, Address, City, State, ZipCode, Telephone, Email, `Password`, Preferences, Rating)
+VALUES ('First1', 'Last1', 'Add1', 'C1', 'S1', 'ZC1', 'T1', 'user1@gmail.com', '123', '', 'never');
+INSERT INTO user (FirstName, LastName, Address, City, State, ZipCode, Telephone, Email, `Password`, Preferences, Rating)
+VALUES ('First2', 'Last2', 'Add2', 'C2', 'S2', 'ZC2', 'T2', 'user2@gmail.com', '123', '', 'never');
+INSERT INTO user (FirstName, LastName, Address, City, State, ZipCode, Telephone, Email, `Password`, Preferences, Rating)
+VALUES ('First3', 'Last3', 'Add3', 'C3', 'S3', 'ZC3', 'T3', 'user3@gmail.com', '123', '', 'never');
+INSERT INTO user (FirstName, LastName, Address, City, State, ZipCode, Telephone, Email, `Password`, Preferences, Rating)
+VALUES ('First4', 'Last4', 'Add4', 'C4', 'S4', 'ZC4', 'T4', 'user4@gmail.com', '123', '', 'never');
+INSERT INTO user (FirstName, LastName, Address, City, State, ZipCode, Telephone, Email, `Password`, Preferences, Rating)
+VALUES ('First5', 'Last5', 'Add5', 'C5', 'S5', 'ZC5', 'T5', 'user5@gmail.com', '123', '', 'never');
+INSERT INTO user (FirstName, LastName, Address, City, State, ZipCode, Telephone, Email, `Password`, Preferences, Rating)
+VALUES ('First6', 'Last6', 'Add6', 'C6', 'S6', 'ZC6', 'T6', 'user6@gmail.com', '123', '', 'never');
+INSERT INTO user (FirstName, LastName, Address, City, State, ZipCode, Telephone, Email, `Password`, Preferences, Rating)
+VALUES ('First7', 'Last7', 'Add7', 'C7', 'S7', 'ZC7', 'T7', 'user7@gmail.com', '123', '', 'never');
+INSERT INTO user (FirstName, LastName, Address, City, State, ZipCode, Telephone, Email, `Password`, Preferences, Rating)
+VALUES ('First8', 'Last8', 'Add8', 'C8', 'S8', 'ZC8', 'T8', 'user8@gmail.com', '123', '', 'never');
+INSERT INTO user (FirstName, LastName, Address, City, State, ZipCode, Telephone, Email, `Password`, Preferences, Rating)
+VALUES ('First9', 'Last9', 'Add9', 'C9', 'S9', 'ZC9', 'T9', 'user9@gmail.com', '123', '', 'never');
+INSERT INTO user (FirstName, LastName, Address, City, State, ZipCode, Telephone, Email, `Password`, Preferences, Rating)
+VALUES ('First10', 'Last10', 'Add10', 'C10', '10', 'ZC10', 'T10', 'user10@gmail.com', '123', '', 'never');
+
+CREATE TABLE Friend (
+ 	UserId1 int,
+ 	UserId2 int,
+ 	PRIMARY KEY (UserId1, UserId2),
+ 	FOREIGN KEY (UserId1) REFERENCES User (UserId),
+ 	FOREIGN KEY (UserId2) REFERENCES User (UserId)
+);
+
+INSERT INTO Friend (UserId1, UserId2)
+VALUES (1, 2);
+INSERT INTO Friend (UserId1, UserId2)
+VALUES (1, 3);
+INSERT INTO Friend (UserId1, UserId2)
+VALUES (1, 4);
+INSERT INTO Friend (UserId1, UserId2)
+VALUES (1, 5);
+INSERT INTO Friend (UserId1, UserId2)
+VALUES (1, 6);
+INSERT INTO Friend (UserId1, UserId2)
+VALUES (2, 3);
+INSERT INTO Friend (UserId1, UserId2)
+VALUES (2, 4);
+INSERT INTO Friend (UserId1, UserId2)
+VALUES (2, 5);
+INSERT INTO Friend (UserId1, UserId2)
+VALUES (2, 6);
+INSERT INTO Friend (UserId1, UserId2)
+VALUES (2, 7);
+
+CREATE TABLE `UserPages` (
+`PageID` int(11) NOT NULL AUTO_INCREMENT,
+`Owner` int(11) NOT NULL UNIQUE,
+`PostCount` int(11) NOT NULL,
+PRIMARY KEY (`PageID`),
+FOREIGN KEY (`Owner`) REFERENCES User (UserId)
+) ;
+
+INSERT INTO UserPages(`Owner`, PostCount)
+VALUES (1, 0);
+INSERT INTO UserPages(`Owner`, PostCount)
+VALUES (2, 0);
+INSERT INTO UserPages(`Owner`, PostCount)
+VALUES (3, 0);
+INSERT INTO UserPages(`Owner`, PostCount)
+VALUES (4, 0);
+INSERT INTO UserPages(`Owner`, PostCount)
+VALUES (5, 0);
+INSERT INTO UserPages(`Owner`, PostCount)
+VALUES (6, 0);
+INSERT INTO UserPages(`Owner`, PostCount)
+VALUES (7, 0);
+INSERT INTO UserPages(`Owner`, PostCount)
+VALUES (8, 0);
+INSERT INTO UserPages(`Owner`, PostCount)
+VALUES (9, 0);
+INSERT INTO UserPages(`Owner`, PostCount)
+VALUES (10, 0);
+
+CREATE TABLE `messages` (
+`MessageID` int(11) NOT NULL AUTO_INCREMENT,
+`Date` datetime NOT NULL,
+`Subject` char(180) NOT NULL,
+`Content` varchar(500) NOT NULL,
+`Sender` int(11) NOT NULL,
+`Receiver` int(11) NOT NULL,
+PRIMARY KEY (`MessageID`),
+FOREIGN KEY (Sender) REFERENCES User (UserId),
+FOREIGN KEY (Receiver) REFERENCES User (UserId)
+) ;
+
+INSERT INTO messages (`Date`, `Subject`, `Content`, `Sender`, `Receiver`)
+VALUES ('2012-12-12 00:00:01', 'Subject1', 'Message1', 1, 2);
+INSERT INTO messages (`Date`, `Subject`, `Content`, `Sender`, `Receiver`)
+VALUES ('2012-12-12 00:00:02', 'Subject2', 'Message2', 1, 2);
+INSERT INTO messages (`Date`, `Subject`, `Content`, `Sender`, `Receiver`)
+VALUES ('2012-12-12 00:00:03', 'Subject3', 'Message3', 2, 1);
+INSERT INTO messages (`Date`, `Subject`, `Content`, `Sender`, `Receiver`)
+VALUES ('2012-12-12 00:00:04', 'Subject4', 'Message4', 2, 1);
+INSERT INTO messages (`Date`, `Subject`, `Content`, `Sender`, `Receiver`)
+VALUES ('2012-12-12 00:00:05', 'Subject5', 'Message5', 3, 1);
+INSERT INTO messages (`Date`, `Subject`, `Content`, `Sender`, `Receiver`)
+VALUES ('2012-12-12 00:00:06', 'Subject6', 'Message6', 3, 1);
+INSERT INTO messages (`Date`, `Subject`, `Content`, `Sender`, `Receiver`)
+VALUES ('2012-12-12 00:00:07', 'Subject7', 'Message7', 4, 1);
+INSERT INTO messages (`Date`, `Subject`, `Content`, `Sender`, `Receiver`)
+VALUES ('2012-12-12 00:00:08', 'Subject8', 'Message8', 3, 4);
+INSERT INTO messages (`Date`, `Subject`, `Content`, `Sender`, `Receiver`)
+VALUES ('2012-12-12 00:00:09', 'Subject9', 'Message9', 4, 3);
+INSERT INTO messages (`Date`, `Subject`, `Content`, `Sender`, `Receiver`)
+VALUES ('2012-12-12 00:00:10', 'Subject10', 'Message10', 4, 3);
+
+CREATE TABLE `UserPosts` (
+`PostID` int(11) NOT NULL AUTO_INCREMENT,
+`Date` datetime NOT NULL,
+`Content` varchar(500) NOT NULL,
+`CommentCount` int(11) NOT NULL,
+`Likes` int(11) NOT NULL,
+`PostBy` int(11) NOT NULL,
+`PostsOn` int(11) NOT NULL,
+PRIMARY KEY (`PostID`),
+FOREIGN KEY (PostBy) REFERENCES User (UserId),
+FOREIGN KEY (PostsOn) REFERENCES UserPages (PageId)
+) ;
+
+INSERT INTO UserPosts (`Date`, Content, CommentCount, Likes, PostBy, PostsOn)
+VALUES ('2012-12-12 00:00:01', 'Post1', 0, 0, 1, 1);
+INSERT INTO UserPosts (`Date`, Content, CommentCount, Likes, PostBy, PostsOn)
+VALUES ('2012-12-12 00:00:02', 'Post2', 0, 0, 1, 1);
+INSERT INTO UserPosts (`Date`, Content, CommentCount, Likes, PostBy, PostsOn)
+VALUES ('2012-12-12 00:00:03', 'Post3', 0, 0, 1, 1);
+INSERT INTO UserPosts (`Date`, Content, CommentCount, Likes, PostBy, PostsOn)
+VALUES ('2012-12-12 00:00:04', 'Post4', 0, 0, 1, 1);
+INSERT INTO UserPosts (`Date`, Content, CommentCount, Likes, PostBy, PostsOn)
+VALUES ('2012-12-12 00:00:05', 'Post5', 0, 0, 1, 1);
+INSERT INTO UserPosts (`Date`, Content, CommentCount, Likes, PostBy, PostsOn)
+VALUES ('2012-12-12 00:00:06', 'Post6', 0, 0, 1, 1);
+INSERT INTO UserPosts (`Date`, Content, CommentCount, Likes, PostBy, PostsOn)
+VALUES ('2012-12-12 00:00:07', 'Post7', 0, 0, 1, 1);
+INSERT INTO UserPosts (`Date`, Content, CommentCount, Likes, PostBy, PostsOn)
+VALUES ('2012-12-12 00:00:08', 'Post8', 0, 0, 1, 1);
+INSERT INTO UserPosts (`Date`, Content, CommentCount, Likes, PostBy, PostsOn)
+VALUES ('2012-12-12 00:00:09', 'Post9', 0, 0, 1, 1);
+INSERT INTO UserPosts (`Date`, Content, CommentCount, Likes, PostBy, PostsOn)
+VALUES ('2012-12-12 00:00:10', 'Post10', 0, 0, 1, 1);
+
+
+
+CREATE TABLE `employee` (
+`SSN` char(11) NOT NULL,
+`FirstName` char(20) NOT NULL,
+`LastName` char(20) NOT NULL,
+`Address` char(50) NOT NULL,
+`City` char(20) NOT NULL,
+`State` char(2) NOT NULL,
+`ZipCode` char(10) NOT NULL,
+`Telephone` char(20) NOT NULL,
+`StartDate` date NOT NULL,
+`HourlyRate` decimal(10,2) NOT NULL,
+`Password` char(30) NOT NULL,
+PRIMARY KEY (`SSN`)
+) ;
+
+INSERT INTO Employee
+VALUES ('111-22-3333', 'Mike', 'Donut', '88-88', 'Stony Brook', 'NY', '11790', '1-123-456-7890', '2012-12-12', 1.0, '123');
+INSERT INTO Employee
+VALUES ('222-33-4444', 'Mike', 'Donut', '88-99', 'Stony Brook', 'NY', '11790', '1-123-456-7890', '2012-12-12', 1.0, '123');
+INSERT INTO Employee
+VALUES ('333-44-5555', 'Mike', 'Donut', '88-11', 'Stony Brook', 'NY', '11790', '1-123-456-7890', '2012-12-12', 1.0, '123');
+INSERT INTO Employee
+VALUES ('444-55-6666', 'Mike', 'Bagel', '88-88', 'Stony Brook', 'NY', '11790', '1-123-456-7890', '2012-12-12', 2.0, '123');
+INSERT INTO Employee
+VALUES ('555-66-7777', 'Mike', 'Bagel', '88-18', 'Stony Brook', 'NY', '11790', '1-123-456-7890', '2012-12-12', 3.0, '123');
+INSERT INTO Employee
+VALUES ('666-77-8888', 'Sarah', 'Bagel', '88-88', 'Stony Brook', 'NY', '11790', '1-123-456-7890', '2012-12-12', 2.0, '123');
+INSERT INTO Employee
+VALUES ('777-88-9999', 'Sarah', 'Bagel', '88-99', 'Stony Brook', 'NY', '11790', '1-123-456-7890', '2012-12-12', 3.0, '123');
+INSERT INTO Employee
+VALUES ('888-99-1111', 'Sarah', 'Bagel', '88-11', 'Stony Brook', 'NY', '11790', '1-123-456-7890', '2012-12-12', 0.5, '123');
+INSERT INTO Employee
+VALUES ('999-11-2222', 'Sarah', 'Donut', '88-88', 'Stony Brook', 'NY', '11790', '1-123-456-7890', '2012-12-12', 0.4, '123');
+INSERT INTO Employee
+VALUES ('000-99-1234', 'Sarah', 'Donut', '87-88', 'Port Jefferson', 'NY', '11793', '1-123-456-7890', '2012-12-12', 0.1, '123');
+
+CREATE TABLE `accountnumber` (
+ `AccountNumber` char(11) NOT NULL,
+ `AccountCreationDate` datetime NOT NULL,
+ `CreditCardNumber` char(19) DEFAULT NULL,
+ `UserID` int(11) NOT NULL,
+ PRIMARY KEY (`AccountNumber`),
+ KEY `fds_idx` (`UserID`),
+ CONSTRAINT `fds` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+INSERT INTO accountnumber (`AccountNumber`, `AccountCreationDate`, `CreditCardNumber`, `UserID`) VALUES ('1', '2012-12-12 00:00:00', '8654345', 1);
+INSERT INTO accountnumber (`AccountNumber`, `AccountCreationDate`, `CreditCardNumber`, `UserID`) VALUES ('2', '2012-12-12 00:00:00', '546453543', 2);
+INSERT INTO accountnumber (`AccountNumber`, `AccountCreationDate`, `CreditCardNumber`, `UserID`) VALUES ('3', '2012-12-13 00:00:00', '5464563', 3);
+INSERT INTO accountnumber (`AccountNumber`, `AccountCreationDate`, `CreditCardNumber`, `UserID`) VALUES ('4', '2012-12-14 00:00:00', '35464534', 4);
+INSERT INTO accountnumber (`AccountNumber`, `AccountCreationDate`, `CreditCardNumber`, `UserID`) VALUES ('5', '2012-12-15 00:00:00', '42546453', 5);
+INSERT INTO accountnumber (`AccountNumber`, `AccountCreationDate`, `CreditCardNumber`, `UserID`) VALUES ('6', '2012-12-16 00:00:00', '54645345', 5);
+INSERT INTO accountnumber (`AccountNumber`, `AccountCreationDate`, `CreditCardNumber`, `UserID`) VALUES ('7', '2012-12-17 00:00:00', '45645312', 5);
+INSERT INTO accountnumber (`AccountNumber`, `AccountCreationDate`, `CreditCardNumber`, `UserID`) VALUES ('8', '2012-12-18 00:00:00', '4536453', 5);
+INSERT INTO accountnumber (`AccountNumber`, `AccountCreationDate`, `CreditCardNumber`, `UserID`) VALUES ('9', '2012-12-19 00:00:00', '54634554', 5);
+INSERT INTO accountnumber (`AccountNumber`, `AccountCreationDate`, `CreditCardNumber`, `UserID`) VALUES ('10', '2012-12-20 00:00:00', '456345645', 5);
+
+CREATE TABLE `advertisements` (
+ `AdvertisementID` int(11) NOT NULL AUTO_INCREMENT,
+ `EmployeeID` char(11) NOT NULL,
+ `Type` enum('food','entertainment','news','game','fashion') NOT NULL,
+ `Date` datetime NOT NULL,
+ `Company` char(100) NOT NULL,
+ `ItemName` char(100) NOT NULL,
+ `Content` varchar(500) NOT NULL,
+ `UnitPrice` decimal(10,2) NOT NULL,
+ `Units` int(11) NOT NULL,
+ PRIMARY KEY (`AdvertisementID`),
+ KEY `employeeID_idx` (`EmployeeID`),
+ CONSTRAINT `employeeID` FOREIGN KEY (`EmployeeID`) REFERENCES `employee` (`SSN`) ON DELETE NO ACTION ON UPDATE CASCADE
+);
+
+INSERT INTO advertisements (`EmployeeID`, `Type`, `Date`, `Company`, `ItemName`, `Content`, `UnitPrice`, `Units`) VALUES ('111-22-3333', 'food', '2012-12-12 00:00:00', 'google', 'Xbox One S 2TB Console?', 'the chain saw. When a South Ame', '50', 1);
+INSERT INTO advertisements (`EmployeeID`, `Type`, `Date`, `Company`, `ItemName`, `Content`, `UnitPrice`, `Units`) VALUES ('111-22-3333', 'entertainment', '2012-12-12 00:00:01', 'Walmart', 'Sniper Ghost Warrior 3', 'Lorem ipsum dolor sit amet, consectetuer adip', '60', 1);
+INSERT INTO advertisements (`EmployeeID`, `Type`, `Date`, `Company`, `ItemName`, `Content`, `UnitPrice`, `Units`) VALUES ('111-22-3333', 'news', '2012-12-12 00:00:02', 'China National Petroleum', 'Destiny The Collection?', 'sque habitant morbi tristique senectus et netus et malesuada fam', '70', 1);
+INSERT INTO advertisements (`EmployeeID`, `Type`, `Date`, `Company`, `ItemName`, `Content`, `UnitPrice`, `Units`) VALUES ('111-22-3333', 'game', '2012-12-12 00:00:03', 'Volkswagen', 'Xbox One S 2TB Console?', 'sque habitant morbi tristique senectus et netus et malesuada fam', '80', 1);
+INSERT INTO advertisements (`EmployeeID`, `Type`, `Date`, `Company`, `ItemName`, `Content`, `UnitPrice`, `Units`) VALUES ('111-22-3333', 'fashion', '2012-12-12 00:00:04', 'Consumer electronics', 'Gaming Headset', 'sque habitant morbi tristique senectus et netus et malesuada fam', '90', 1);
+INSERT INTO advertisements (`EmployeeID`, `Type`, `Date`, `Company`, `ItemName`, `Content`, `UnitPrice`, `Units`) VALUES ('111-22-3333', 'fashion', '2012-12-12 00:00:05', 'google', 'Watch Dogs 2', 'sque habitant morbi tristique senectus et netus et malesuada fam', '100', 1);
+INSERT INTO advertisements (`EmployeeID`, `Type`, `Date`, `Company`, `ItemName`, `Content`, `UnitPrice`, `Units`) VALUES ('111-22-3333', 'fashion', '2012-12-12 00:00:06', 'google', 'Watch Dogs 3', 'sque habitant morbi tristique senectus et netus et malesuada fam', '110', 1);
+INSERT INTO advertisements (`EmployeeID`, `Type`, `Date`, `Company`, `ItemName`, `Content`, `UnitPrice`, `Units`) VALUES ('111-22-3333', 'fashion', '2012-12-12 00:00:07', 'google', 'Watch Dogs 4', 'sque habitant morbi tristique senectus et netus et malesuada fam', '120', 1);
+INSERT INTO advertisements (`EmployeeID`, `Type`, `Date`, `Company`, `ItemName`, `Content`, `UnitPrice`, `Units`) VALUES ('111-22-3333', 'fashion', '2012-12-12 00:00:08', 'google', 'Watch Dogs 5', 'sque habitant morbi tristique senectus et netus et malesuada fam', '130', 1);
+INSERT INTO advertisements (`EmployeeID`, `Type`, `Date`, `Company`, `ItemName`, `Content`, `UnitPrice`, `Units`) VALUES ('111-22-3333', 'fashion', '2012-12-12 00:00:09', 'google', 'Watch Dogs 6', 'sque habitant morbi tristique senectus et netus et malesuada fam', '140', 1);
+
+CREATE TABLE `sales` (
+ `TransactionID` int(11) NOT NULL AUTO_INCREMENT,
+ `Date` datetime NOT NULL,
+ `AdvertisementID` int(11) NOT NULL,
+ `Units` int(11) NOT NULL,
+ `AccountNumber` char(11) NOT NULL,
+ `employeeID` char(11) NOT NULL,
+ PRIMARY KEY (`TransactionID`),
+ KEY `adver_idx` (`AdvertisementID`),
+ KEY `employeeidforsales_idx` (`employeeID`),
+ KEY `AccountNumber1_idx` (`AccountNumber`),
+ CONSTRAINT `acountnum` FOREIGN KEY (`AccountNumber`) REFERENCES `accountnumber` (`AccountNumber`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ CONSTRAINT `adver` FOREIGN KEY (`AdvertisementID`) REFERENCES `advertisements` (`AdvertisementID`) ON DELETE NO ACTION ON UPDATE CASCADE,
+ CONSTRAINT `employee` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`SSN`) ON DELETE NO ACTION ON UPDATE CASCADE
+) ;
+
+INSERT INTO Sales (`Date`, AdvertisementID, Units, AccountNumber, EmployeeID)
+VALUES ('2012-12-12 00:00:00', 2, 1, '2', '111-22-3333');
+INSERT INTO Sales (`Date`, AdvertisementID, Units, AccountNumber, EmployeeID)
+VALUES ('2012-12-12 00:00:01', 2, 1, '3', '111-22-3333');
+INSERT INTO Sales (`Date`, AdvertisementID, Units, AccountNumber, EmployeeID)
+VALUES ('2012-12-12 00:00:02', 3, 1, '4',  '111-22-3333');
+INSERT INTO Sales (`Date`, AdvertisementID, Units, AccountNumber, EmployeeID)
+VALUES ('2012-12-12 00:00:03', 4, 1, '5', '111-22-3333');
+INSERT INTO Sales (`Date`, AdvertisementID, Units, AccountNumber, EmployeeID)
+VALUES ('2012-12-12 00:00:04', 2, 1, '6', '111-22-3333');
+INSERT INTO Sales (`Date`, AdvertisementID, Units, AccountNumber, EmployeeID)
+VALUES ('2012-12-12 00:00:05', 2, 1, '2', '111-22-3333');
+INSERT INTO Sales (`Date`, AdvertisementID, Units, AccountNumber, EmployeeID)
+VALUES ('2012-12-12 00:00:06', 3, 1, '3', '111-22-3333');
+INSERT INTO Sales (`Date`, AdvertisementID, Units, AccountNumber, EmployeeID)
+VALUES ('2012-12-12 00:00:07', 4, 1, '4', '111-22-3333');
+INSERT INTO Sales (`Date`, AdvertisementID, Units, AccountNumber, EmployeeID)
+VALUES ('2012-12-12 00:00:08', 2, 1, '5', '111-22-3333');
+INSERT INTO Sales (`Date`, AdvertisementID, Units, AccountNumber, EmployeeID)
+VALUES ('2012-12-12 00:00:09', 2, 1, '4', '111-22-3333');
+
+CREATE TABLE `groups` (
+ `GroupID` int(11) NOT NULL AUTO_INCREMENT,
+ `GroupName` char(20) NOT NULL,
+ `Type` enum('club','organization') NOT NULL,
+ `Owner` int(11) NOT NULL,
+ PRIMARY KEY (`GroupID`),
+ KEY `groups_ibfk_1` (`Owner`),
+ CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`Owner`) REFERENCES `user` (`UserID`) ON DELETE NO ACTION ON UPDATE CASCADE
+) ;
+
+INSERT INTO Groups
+VALUES (1, 'Chicken', 'organization', 1);
+INSERT INTO Groups
+VALUES (2, 'Pork', 'club', 1);
+INSERT INTO Groups
+VALUES (3, 'Beef', 'organization', 2);
+INSERT INTO Groups
+VALUES (4, 'Lamb', 'club', 2);
+INSERT INTO Groups
+VALUES (5, 'Fish', 'organization', 3);
+INSERT INTO Groups
+VALUES (6, 'Potato', 'club', 3);
+INSERT INTO Groups
+VALUES (7, 'Tofu', 'organization', 4);
+INSERT INTO Groups
+VALUES (8, 'Salmon', 'club', 4);
+INSERT INTO Groups
+VALUES (9, 'Lobster', 'organization', 5);
+INSERT INTO Groups
+VALUES (10, 'Crab', 'club', 5);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+This is the query that I ran for testing my part (User and Employee). It is not for group and manager. I am sorry, our teamwork needs improvement. FbConnector/fbConnector.java has the SQL manager. It connects directly to my local MySQL schema phases3.
